@@ -29,7 +29,7 @@ public class CandlepinClient {
                             cert=null, key=null,
                  host='localhost', port=8443, 
                  lang=null, uuid=null,
-                 trusted_user=false, context='candlepin',
+                 context='candlepin',
                  use_ssl = true){
              
         if(username!=null && cert!=null){
@@ -46,8 +46,6 @@ public class CandlepinClient {
         
         if(uuid!=null){
             create_trusted_consumer_client(uuid)
-        } else if (trusted_user){
-            create_trusted_user_client(username)
         } else if (cert!=null){
             create_ssl_client(cert, key)
         } else {
