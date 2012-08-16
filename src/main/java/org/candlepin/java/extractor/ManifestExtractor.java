@@ -39,7 +39,7 @@ public class ManifestExtractor {
         CandlepinClient cp = new CandlepinClient(ADMIN_USERNAME, ADMIN_PASSWORD,
                 null, null,
                 HOST, PORT,
-                null, null, Boolean.FALSE, "candlepin", use_ssl);
+                null, null, "candlepin", use_ssl);
 
 
         Map owner = (Map) cp.create_owner("owner" + randstring());
@@ -67,11 +67,10 @@ public class ManifestExtractor {
         CandlepinClient org_admin_cp = new CandlepinClient(ORG_ADMIN_USERNAME, ORG_ADMIN_PASSWORD,
                 null, null,
                 HOST, PORT,
-                null, null, Boolean.FALSE, "candlepin", use_ssl);
+                null, null, "candlepin", use_ssl);
 
 
         Map consumer = (Map) org_admin_cp.register("dummyconsumer" + randstring(), "candlepin", owner.get("key"));
-        System.out.println();
 
         CandlepinConsume consumer_cp = new CandlepinConsume(HOST, PORT,
                 (String) ((Map) consumer.get("idCert")).get("key"),
@@ -91,7 +90,11 @@ public class ManifestExtractor {
         return "";
     }
     
-    public static void main(String [] args){
-            extractManifest("admin","admin","candlepin.localdomain","8443");
+    public static void main(String [] args) throws IOException, InterruptedException{
+           // ResetCandlepin rcp = new ResetCandlepin("katello.localdomain", 22, "root", "login");
+           // rcp.turnKatelloOff();
+            extractManifest("admin","admin","katello.localdomain","8443");
+           // rcp.turnKatelloBackOn();
     }
+    
 }
