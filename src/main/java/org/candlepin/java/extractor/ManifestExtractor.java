@@ -91,10 +91,10 @@ public class ManifestExtractor {
     }
     
     public static void main(String [] args) throws IOException, InterruptedException{
-           // ResetCandlepin rcp = new ResetCandlepin("katello.localdomain", 22, "root", "login");
-           // rcp.turnKatelloOff();
-            extractManifest("admin","admin","katello.localdomain","8443");
-           // rcp.turnKatelloBackOn();
+          ResetCandlepin rcp = new ResetCandlepin("katello.localdomain", 22, "root", "login");
+          rcp.turnKatelloOff();
+          extractManifest("admin","admin","katello.localdomain","8443");
+          rcp.turnKatelloBackOn();
     }
     
 }

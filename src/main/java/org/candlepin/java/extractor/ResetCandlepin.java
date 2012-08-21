@@ -8,6 +8,8 @@ import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 /**
  *
  * @author asaleh
@@ -41,11 +43,25 @@ public class ResetCandlepin {
     public void turnKatelloOff() throws IOException, InterruptedException{
         runcommand("cp  /etc/candlepin/candlepin.conf  /tmp/candlepin.conf");
         runcommand("cat /tmp/candlepin.conf| sed s/^module.config.katello/#module.config.katello/ | sed s/^candlepin/#candlepin/ > /etc/candlepin/candlepin.conf");
+        runcommand("chown tomcat:tomcat  /etc/candlepin/candlepin.conf");
         runcommand("service tomcat6 restart");
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ManifestExtractor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        runcommand("curl -k  https://localhost:8443/candlepin/admin/init/");
+
     }
     public void turnKatelloBackOn() throws IOException, InterruptedException{
         runcommand("mv -f   /tmp/candlepin.conf  /etc/candlepin/candlepin.conf");
+        runcommand("chown tomcat:tomcat  /etc/candlepin/candlepin.conf");
         runcommand("service tomcat6 restart");
+        try {
+            Thread.sleep(4000);
+        } catch (InterruptedException ex) {
+            Logger.getLogger(ManifestExtractor.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
