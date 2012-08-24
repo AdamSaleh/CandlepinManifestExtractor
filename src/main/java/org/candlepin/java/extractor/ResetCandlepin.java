@@ -40,6 +40,13 @@ public class ResetCandlepin {
         s.close();
     }
     
+    public String clearDatabase() throws IOException, InterruptedException{
+        String folder ="/tmp/saved_katello_databases";
+        runcommand("mkdir -p "+ folder);
+
+        return folder;
+    }
+    
     public void turnKatelloOff() throws IOException, InterruptedException{
         runcommand("cp  /etc/candlepin/candlepin.conf  /tmp/candlepin.conf");
         runcommand("cat /tmp/candlepin.conf| sed s/^module.config.katello/#module.config.katello/ | sed s/^candlepin/#candlepin/ > /etc/candlepin/candlepin.conf");

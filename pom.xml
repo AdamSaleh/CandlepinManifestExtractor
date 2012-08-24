@@ -54,6 +54,11 @@
       <version>140</version>
       <type>jar</type>
     </dependency>
+    <dependency>
+        <groupId>org.jenkins-ci</groupId>
+        <artifactId>trilead-ssh2</artifactId>
+      <version>build214-jenkins-1</version>
+    </dependency>
 </dependencies>
 <build>
     <plugins>

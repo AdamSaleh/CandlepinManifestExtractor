@@ -15,6 +15,7 @@ import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
+import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
@@ -31,7 +32,7 @@ public class CandlepinConsume {
     String uri;
     String port;
             
-    String uuid = "";
+    String uuid;
     
 
     public static String randstring() {
@@ -39,13 +40,13 @@ public class CandlepinConsume {
         return String.valueOf(randnum);
     }
 
-    public CandlepinConsume(String uri,String port,String key, String cer) {
+    public CandlepinConsume(String uri,String port,String key, String cer,String uuid) {
       
             this.key = key;
             this.cer = cer;
             this.port = port;
             this.uri = uri;
-
+            this.uuid = uuid;
            
     }
     
@@ -53,7 +54,7 @@ public class CandlepinConsume {
           try {
             KeyCertConfig kcc = new KeyCertConfig(new HTTPBuilder());
             KeyStore trustStore = kcc.pemToPKCS12(key, cer, "asdf");
-            uuid = kcc.getUuid();
+   
             SSLSocketFactory socketFactory = new SSLSocketFactory(trustStore, "asdf");
             Scheme sch = new Scheme("https", socketFactory, 8443);
             httpclient.getConnectionManager().getSchemeRegistry().register(sch);
@@ -78,7 +79,7 @@ public class CandlepinConsume {
         try {
                 setupClient(httpclient);
 
-            HttpGet httpget = new HttpGet("https://"+uri+":"+port+"/candlepin/consumers/" + uuid + "/entitlements?pool=" + pool + "&quantity=" + quantity);
+            HttpPost httpget = new HttpPost("https://"+uri+":"+port+"/candlepin/consumers/" + uuid + "/entitlements?pool=" + pool + "&quantity=" + quantity);
 
             HttpResponse response = httpclient.execute(httpget);
             HttpEntity entity = response.getEntity();
