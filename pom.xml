@@ -12,92 +12,136 @@
     <name>CandlepinClient project</name>
     <version>1.0-SNAPSHOT</version>
     
-<properties>
-    <gmavenVersion>1.4</gmavenVersion>
-    <gmavenProviderSelection>2.0</gmavenProviderSelection>
-    <groovyVersion>2.0.0</groovyVersion>
-</properties>
+    <properties>
+        <gmavenVersion>1.4</gmavenVersion>
+        <gmavenProviderSelection>2.0</gmavenProviderSelection>
+        <groovyVersion>2.0.0</groovyVersion>
+    </properties>
 
     <repositories>
+        <repository>
+            <id>maven2</id>
+            <url>http://repo1.maven.org/maven2</url>
+        </repository>
         <repository>
             <id>jline</id>
             <name>JLine Project Repository</name>
             <url>http://jline.sourceforge.net/m2repo</url>
         </repository>
+        <repository>
+            <id>JBoss</id>
+            <name>JBoss Thirdparty Releases</name>
+            <url>https://repository.jboss.org/nexus/content/repositories/thirdparty-releases</url>
+        </repository>
+    
+        <repository>
+            <id>codehaus</id>
+            <name>Codehaus Release Repo</name>
+            <url>http://dist.codehaus.org/</url>
+        </repository>
+
+        <repository>
+            <id>java.net-Public</id>
+            <name>Maven Java Net Snapshots and Releases</name>
+            <url>https://maven.java.net/content/groups/public/</url>
+        </repository>
     </repositories>
 
-<dependencies>
-    <dependency>
-        <groupId>org.codehaus.groovy</groupId>
-        <artifactId>groovy-all</artifactId>
-        <version>${groovyVersion}</version>
-    </dependency>
-    <dependency>
-        <groupId>org.codehaus.groovy.modules.http-builder</groupId>
-        <artifactId>http-builder</artifactId>
-        <version>0.5.2
-        </version>
-    </dependency>
-       <dependency>
-	<groupId>org.fusesource.jansi</groupId>
-	<artifactId>jansi</artifactId>
-	<version>1.9</version>
-</dependency>
- <dependency>
+    <dependencies>
+        <dependency>
+            <groupId>org.codehaus.groovy</groupId>
+            <artifactId>groovy-all</artifactId>
+            <version>${groovyVersion}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.codehaus.groovy.modules.http-builder</groupId>
+            <artifactId>http-builder</artifactId>
+            <version>0.5.2
+            </version>
+        </dependency>
+        <dependency>
+            <groupId>org.fusesource.jansi</groupId>
+            <artifactId>jansi</artifactId>
+            <version>1.9</version>
+        </dependency>
+        <dependency>
             <groupId>jline</groupId>
             <artifactId>jline</artifactId>
             <version>0.9.9</version>
         </dependency>
-    <dependency>
-        <groupId>bouncycastle</groupId>
-        <artifactId>bcprov-jdk15</artifactId>
-      <version>140</version>
-      <type>jar</type>
-    </dependency>
-    <dependency>
-        <groupId>org.jenkins-ci</groupId>
-        <artifactId>trilead-ssh2</artifactId>
-      <version>build214-jenkins-1</version>
-    </dependency>
-</dependencies>
-<build>
-    <plugins>
-        <plugin>
-            <groupId>org.codehaus.gmaven</groupId>
-            <artifactId>gmaven-plugin</artifactId>
-            <version>${gmavenVersion}</version>
-            <configuration>
-                <providerSelection>${gmavenProviderSelection}</providerSelection>
-                <sourceEncoding>UTF-8</sourceEncoding>
-            </configuration>
-            <executions>
-                <execution>
-                    <goals>
-                        <goal>generateStubs</goal>
-                        <goal>compile</goal>
-                        <goal>generateTestStubs</goal>
-                        <goal>testCompile</goal>
-                    </goals>
-                </execution>
-            </executions>
-            <dependencies>
-                <dependency>
-                    <groupId>org.codehaus.groovy</groupId>
-                    <artifactId>groovy-all</artifactId>
-                    <version>${groovyVersion}</version>
-                </dependency>
-                <dependency>
-	<groupId>org.fusesource.jansi</groupId>
-	<artifactId>jansi</artifactId>
-	<version>1.9</version>
-</dependency>
- <dependency>
-            <groupId>jline</groupId>
-            <artifactId>jline</artifactId>
-            <version>0.9.9</version>
+        <dependency>
+            <groupId>bouncycastle</groupId>
+            <artifactId>bcprov-jdk15</artifactId>
+            <version>140</version>
+            <type>jar</type>
         </dependency>
-            </dependencies>
-        </plugin>
-    </plugins>
-</build>
+        <dependency>
+            <groupId>org.jboss.resteasy</groupId>
+            <artifactId>resteasy-jaxrs</artifactId>
+            <version>2.3.1.GA</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.scannotation</groupId>
+            <artifactId>scannotation</artifactId>
+            <version>1.0.3</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpclient</artifactId>
+            <version>4.0.3</version>
+            <type>jar</type>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.httpcomponents</groupId>
+            <artifactId>httpcore</artifactId>
+            <version>4.0.1</version>
+            <type>jar</type>
+        </dependency>
+      <dependency>
+        <groupId>org.glassfish.main.external</groupId>
+        <artifactId>trilead-ssh2-repackaged</artifactId>
+        <version>3.1.2</version>
+      </dependency>
+    </dependencies>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.codehaus.gmaven</groupId>
+                <artifactId>gmaven-plugin</artifactId>
+                <version>${gmavenVersion}</version>
+                <configuration>
+                    <providerSelection>${gmavenProviderSelection}</providerSelection>
+                    <sourceEncoding>UTF-8</sourceEncoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>generateStubs</goal>
+                            <goal>compile</goal>
+                            <goal>generateTestStubs</goal>
+                            <goal>testCompile</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <dependencies>
+                    <dependency>
+                        <groupId>org.codehaus.groovy</groupId>
+                        <artifactId>groovy-all</artifactId>
+                        <version>${groovyVersion}</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>org.fusesource.jansi</groupId>
+                        <artifactId>jansi</artifactId>
+                        <version>1.9</version>
+                    </dependency>
+                    <dependency>
+                        <groupId>jline</groupId>
+                        <artifactId>jline</artifactId>
+                        <version>0.9.9</version>
+                    </dependency>
+                </dependencies>
+            </plugin>
+        </plugins>
+    </build>
 </project>

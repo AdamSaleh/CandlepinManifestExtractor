@@ -4,7 +4,6 @@
  */
 package org.candlepin.java.extractor;
 
-import groovyx.net.http.HTTPBuilder;
 import java.io.*;
 import java.security.*;
 import java.security.cert.CertificateException;
@@ -13,7 +12,6 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.conn.scheme.Scheme;
@@ -52,9 +50,8 @@ public class CandlepinConsume {
     
     private void setupClient(DefaultHttpClient httpclient){
           try {
-            KeyCertConfig kcc = new KeyCertConfig(new HTTPBuilder());
+            KeyCertConfig kcc = new KeyCertConfig();
             KeyStore trustStore = kcc.pemToPKCS12(key, cer, "asdf");
-   
             SSLSocketFactory socketFactory = new SSLSocketFactory(trustStore, "asdf");
             Scheme sch = new Scheme("https", socketFactory, 8443);
             httpclient.getConnectionManager().getSchemeRegistry().register(sch);
@@ -77,13 +74,12 @@ public class CandlepinConsume {
                 DefaultHttpClient httpclient = new DefaultHttpClient();
 
         try {
-                setupClient(httpclient);
+            setupClient(httpclient);
 
             HttpPost httpget = new HttpPost("https://"+uri+":"+port+"/candlepin/consumers/" + uuid + "/entitlements?pool=" + pool + "&quantity=" + quantity);
 
             HttpResponse response = httpclient.execute(httpget);
             HttpEntity entity = response.getEntity();
-
 
         } catch (IOException ex) {
             Logger.getLogger(CandlepinConsume.class.getName()).log(Level.SEVERE, null, ex);

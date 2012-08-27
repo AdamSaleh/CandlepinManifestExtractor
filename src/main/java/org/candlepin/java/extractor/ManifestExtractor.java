@@ -8,7 +8,6 @@ package org.candlepin.java.extractor;
  *
  * @author asaleh
  */
-import groovyx.net.http.HttpResponseException;
 import java.io.*;
 import java.util.Map;
 import java.util.Random;
@@ -45,17 +44,17 @@ public class ManifestExtractor {
 
         Map owner = (Map) cp.create_owner("owner" + randstring());
 
-        Map product1;
+       Map product1;
         try {
             product1 = (Map) cp.get_product("ZOO");
-        } catch (HttpResponseException ex) {
+        } catch ( Exception ex) {
             product1 = (Map) cp.create_product("ZOO", "Zoo Enterprise 24/7");
         }
 
         Map product2;
         try {
             product2 = (Map) cp.get_product("NATURE");
-        } catch (HttpResponseException ex) {
+        } catch (Exception ex) {
             product2 = (Map) cp.create_product("NATURE", "Nature Enterprise 8/5");
         }
 
@@ -103,6 +102,7 @@ public class ManifestExtractor {
     public static void main(String[] args) throws IOException, InterruptedException {
         // ResetCandlepin rcp = new ResetCandlepin("katello.localdomain", 22, "root", "login");
         // rcp.turnKatelloOff();
+        System.out.println("Downloading from admin,admin, candlepin.localdomain");
         extractManifest("admin", "admin", "candlepin.localdomain", "8443");
         // rcp.turnKatelloBackOn();
     }

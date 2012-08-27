@@ -14,7 +14,6 @@ public class CandlepinClient {
     def consumer
     def uuid
     JsonSlurper slurper = new JsonSlurper()
-    Random random = new Random()
     public RESTClient client
      
     public CandlepinClient(username=null, password=null, 

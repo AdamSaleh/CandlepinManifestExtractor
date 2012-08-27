@@ -4,8 +4,7 @@
  */
 package org.candlepin.java.extractor;
 
-import groovyx.net.http.AuthConfig;
-import groovyx.net.http.HTTPBuilder;
+
 import java.io.IOException;
 import java.io.Reader;
 import java.io.StringReader;
@@ -16,13 +15,12 @@ import org.apache.http.conn.scheme.Scheme;
 import org.apache.http.conn.ssl.SSLSocketFactory;
 
 import org.bouncycastle.openssl.PEMReader;
-import org.bouncycastle.openssl.PasswordFinder;
 
 /**
  *
  * @author asaleh
  */
-public class KeyCertConfig extends AuthConfig {
+public class KeyCertConfig{
 
     String uuid="";
 
@@ -30,28 +28,8 @@ public class KeyCertConfig extends AuthConfig {
         return uuid;
     }
     
-    public KeyCertConfig(HTTPBuilder builder) {
-        super(builder);
-    }
-
-    /*
-     * Sets a certificate to be used for SSL authentication. See
-     * {@link Class#getResource(String)} for how to get a URL from a resource on
-     * the classpath.
-     *
-     * @param certURL URL to a JKS keystore where the certificate is stored.
-     * @param password password to decrypt the keystore
-     */
-    public void certificate(String key, String cer, final String password)
-            throws GeneralSecurityException, IOException {
-
-        KeyStore keyStore =pemToPKCS12(key, cer, password);
-        
-
-        SSLSocketFactory ssl = new SSLSocketFactory(keyStore, password);
-        ssl.setHostnameVerifier(SSLSocketFactory.STRICT_HOSTNAME_VERIFIER);
-
-        builder.getClient().getConnectionManager().getSchemeRegistry().register(new Scheme("https", ssl, 8443));
+    public KeyCertConfig() {
+       
     }
 
     public KeyStore pemToPKCS12(Reader keyFile, Reader cerFile, final String password) throws IOException, KeyStoreException, NoSuchAlgorithmException, CertificateException {
