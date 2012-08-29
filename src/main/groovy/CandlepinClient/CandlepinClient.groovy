@@ -151,6 +151,9 @@ public class CandlepinClient {
         def builder = new groovy.json.JsonBuilder([key:owner_key,displayName:owner_key])
         post('owners', builder.toString())
     }
+    def get_owner(owner_key){
+        get('owners/'+owner_key)
+    }
    
     def post(uri, data=null,query_map = null){
         def response = raw_post(uri, data,query_map)
